@@ -21,6 +21,17 @@ reconstructed_pca_50  = reconstruct_data(pca_50, dir_50, mu);
 reconstructed_pca_100 = reconstruct_data(pca_100, dir_100, mu); 
 reconstructed_pca_200 = reconstruct_data(pca_200, dir_200, mu); 
 
+% The total reconstruction errors for p = 10, 50, 100, 200.
+error_10  = reconstruction_error(A, reconstructed_pca_10)
+error_50  = reconstruction_error(A, reconstructed_pca_50)
+error_100 = reconstruction_error(A, reconstructed_pca_100)
+error_200 = reconstruction_error(A, reconstructed_pca_200)
+
+% Example of plotting the (the first two) of the reconstructed images for p = 10
+A10_1 = reshape(reconstructed_pca_10(1,:), 16, 16);
+A10_2 = reshape(reconstructed_pca_10(2,:), 16, 16);
+imshow(A10_1')
+imshow(A10_2')
 
 % FUNCTIONS for PART 1 & 2
 
@@ -43,4 +54,9 @@ centered_data = matrix_input - repmat(mean(matrix_input, 1), size(matrix_input, 
 [~, ~, V] = svds(cov(centered_data), dimension);
 components = centered_data * V;
 directions = V;
+end
+
+function error = reconstruction_error(data_original, data_reconstructed)
+diff = abs(data_original - data_reconstructed).^2;
+error = sum(diff(:))/numel(data_original);
 end
