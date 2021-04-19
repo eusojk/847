@@ -1,3 +1,5 @@
+% USPS.mat from https://github.com/jiayuzhou/CSE847/blob/master/data/USPS.mat?raw=true
+
 % Loading the matrix:
 dataset = load("USPS.mat");
 A = dataset.A
